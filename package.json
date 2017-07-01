@@ -20,6 +20,7 @@
     "file-loader": "^0.11.2",
     "glob": "^7.1.2",
     "js-yaml": "^3.8.4",
+    "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "normalize.css": "^7.0.0",
     "path-complete-extname": "^0.1.0",
@@ -34,7 +35,6 @@
     "vue-loader": "^13.0.0",
     "vue-router": "^2.7.0",
     "vue-template-compiler": "^2.3.4",
-    "vuex": "^2.3.1",
     "webpack": "^3.0.0",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0"

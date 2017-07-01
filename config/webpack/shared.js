@@ -52,8 +52,7 @@ module.exports = {
       'node_modules'
     ],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      stylesheets: path.join(__dirname, '../../app/assets/stylesheets')
+      'vue$': 'vue/dist/vue.esm.js'
     }
   },
 

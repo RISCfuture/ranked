@@ -1,2 +1,3 @@
+# @private
 module ApplicationHelper
 end

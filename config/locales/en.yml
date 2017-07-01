@@ -2,10 +2,10 @@ en:
   activerecord:
     errors:
       models:
-        TODO:
+        stack:
           attributes:
-            TODO:
-              TODO: TODO
+            cards:
+              too_few: at least two are required
     models:
       TODO: TODO
     attributes:

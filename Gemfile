@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # FRAMEWORK
-gem 'rails', '5.1.2'
+gem 'rails', '5.1.3'
 gem 'puma'
 
 # MODELS
@@ -18,6 +18,7 @@ gem 'responders'
 
 # VIEWS
 gem 'jbuilder'
+gem 'slim-rails'
 
 # ASSETS
 gem 'webpacker'

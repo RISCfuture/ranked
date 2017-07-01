@@ -2,14 +2,14 @@ doctype html
 html lang="en"
   head
     meta charset="utf-8"
-    meta name="description" content="TODO"
+    meta name="description" content="A website for ranking anything."
     meta name="author" content="Tim Morgan"
     = csrf_meta_tags
 
-    title ranked
+    title Ranked.
 
-    = stylesheet_link_tag 'application'
+    = stylesheet_pack_tag 'application'
 
   body class=controller_name.gsub('/', '-') id="#{controller_name.gsub('/', '-')}-#{action_name}"
     = yield
-    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application'

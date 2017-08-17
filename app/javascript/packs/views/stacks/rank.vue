@@ -15,8 +15,8 @@
       </div>
 
       <p>
-        <span>{{remaining}} remaining.</span>
-        <span v-if="match">Or, if you’d like, you can <router-link :to="{name: 'stack_results', query: $route.query}">see your results right now.</router-link></span>
+        <span id="number-remaining">{{remaining}} remaining.</span>
+        <span v-if="matches.length" id="skip-to-end"><br />Or, if you’d like, you can <router-link :to="{name: 'stack_results', query: $route.query}">see your results right now.</router-link></span>
       </p>
     </template>
   </div>
@@ -110,5 +110,13 @@
   .both {
     text-align: center;
     margin: 30px 0;
+  }
+
+  #number-remaining {
+    font-weight: 300;
+  }
+
+  #skip-to-end {
+    font-weight: 200;
   }
 </style>

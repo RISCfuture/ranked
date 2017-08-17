@@ -1,3 +1,4 @@
 .bundle
 .yardoc/public/packs
 /node_modules
+tmp/restart.txt

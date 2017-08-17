@@ -16,7 +16,7 @@
 
       <p>
         <span>{{remaining}} remaining.</span>
-        <span v-if="match">Or, if you’d like, you can <router-link :to="{name: 'stack_results', query: {m: $route.query.m}}">see your results right now.</router-link></span>
+        <span v-if="match">Or, if you’d like, you can <router-link :to="{name: 'stack_results', query: $route.query}">see your results right now.</router-link></span>
       </p>
     </template>
   </div>
@@ -37,19 +37,19 @@
     },
 
     computed: {
-      results() {
+      matches() {
         if (!this.$route.query.m) return []
         else return coding.decode(this.$route.query.m)
       },
 
       match() {
         if (!this.stack || !this.stack.pairs_order) return null
-        let indexes = this.stack.pairs_order[this.results.length]
+        let indexes = this.stack.pairs_order[this.matches.length]
         return _.map(indexes, (i) => this.stack.cards[i])
       },
 
       remaining() {
-        let remaining = this.stack.pairs_order.length - this.results.length
+        let remaining = this.stack.pairs_order.length - this.matches.length
         let remainingStr = numeral(remaining).format('0,0')
         let choice = (remaining === 1) ? "choice" : "choices"
         return `${remainingStr} ${choice}`
@@ -58,7 +58,7 @@
 
     methods: {
       choose(choice) {
-        let results = this.results.concat([choice])
+        let results = this.matches.concat([choice])
         if (results.length >= this.stack.pairs_order.length)
           this.$router.push({name: 'stack_results', query: {m: coding.encode(results)}})
         else

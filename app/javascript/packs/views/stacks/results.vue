@@ -8,7 +8,11 @@
     </ol>
 
     <p v-if="canShare"><a href="#" @click.prevent="share">Share with my friends.</a></p>
-    <p v-if="shared"><router-link :to="{name: 'stack_new'}">I’d like to rank something now!</router-link></p>
+    <p v-if="shared">
+      <router-link :to="{name: 'stack_rank', params: {id: $route.params.id}}">I want to rank {{stack.name}}!</router-link>
+      <span class="dot">&middot;</span>
+      <router-link :to="{name: 'stack_new'}">I’d like to make my own list of things to rank!</router-link>
+    </p>
   </div>
 </template>
 
@@ -73,5 +77,14 @@
     font-weight: 200;
     text-align: right;
     margin-right: 0.5em;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  span.dot {
+    margin-left: 1em;
+    margin-right: 1em;
   }
 </style>

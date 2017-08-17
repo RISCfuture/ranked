@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 import routes from './routes'
 
 import 'normalize.css'
-import './stylesheets/fonts.css'
+import './stylesheets/fonts.scss'
 import './stylesheets/common.sass'
 
 // add interceptor to add CSRF tokens to request

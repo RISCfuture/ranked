@@ -3,23 +3,29 @@
     <h1 class="error" v-if="error">Sorry, an error occurred.</h1>
     <p class="error" v-if="error">{{error}}</p>
 
-    <h2>Let’s Rank {{stack.name}}.</h2>
+    <template v-else>
+      <h2>Let’s Rank {{stack.name}}.</h2>
 
-    <p>Which is better?</p>
+      <p>Which is better?</p>
 
-    <div class="match-pair" v-if="match">
-      <div class="first"><a href="#" @click.prevent="choose(1)">{{match[0].name}}</a></div>
-      <div class="both"><a href="#" @click.prevent="choose(3)">They’re about equal.</a></div>
-      <div class="second"><a href="#" @click.prevent="choose(2)">{{match[1].name}}</a></div>
-    </div>
+      <div class="match-pair" v-if="match">
+        <div class="first"><a href="#" @click.prevent="choose(1)">{{match[0].name}}</a></div>
+        <div class="both"><a href="#" @click.prevent="choose(3)">They’re about equal.</a></div>
+        <div class="second"><a href="#" @click.prevent="choose(2)">{{match[1].name}}</a></div>
+      </div>
 
-    <p v-if="match"><router-link :to="{name: 'stack_results', query: {m: $route.query.m}}">I’m ready to see my results.</router-link></p>
+      <p>
+        <span>{{remaining}} remaining.</span>
+        <span v-if="match">Or, if you’d like, you can <router-link :to="{name: 'stack_results', query: {m: $route.query.m}}">see your results right now.</router-link></span>
+      </p>
+    </template>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
   import _ from 'lodash'
+  import axios from 'axios'
+  import numeral from 'numeral'
   import coding from './encoder'
 
   export default {
@@ -40,6 +46,13 @@
         if (!this.stack || !this.stack.pairs_order) return null
         let indexes = this.stack.pairs_order[this.results.length]
         return _.map(indexes, (i) => this.stack.cards[i])
+      },
+
+      remaining() {
+        let remaining = this.stack.pairs_order.length - this.results.length
+        let remainingStr = numeral(remaining).format('0,0')
+        let choice = (remaining === 1) ? "choice" : "choices"
+        return `${remainingStr} ${choice}`
       }
     },
 
@@ -57,7 +70,7 @@
       axios.get(`/stacks/${this.$route.params.id}.json`).then(({data}) => {
         this.stack = data
       }).catch((error) => {
-        this.error = error
+        this.error = error.toString()
       })
     }
   }
@@ -68,7 +81,7 @@
     margin-bottom: 100px;
   }
 
-  p {
+  p:not(.error) {
     font-size: 18px;
     font-weight: 500;
     text-align: center;

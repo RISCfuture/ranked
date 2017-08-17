@@ -1,6 +1,8 @@
 Ranked.
 =======
 
+[![Build Status](https://travis-ci.org/RISCfuture/ranked.svg?branch=master)](https://travis-ci.org/RISCfuture/ranked)
+
 Ranked is a website where users can create a list of things, such as baseball
 teams or colors or baby names, and they and other users can then rank those
 items. Ranking is done by presenting the user with each possible pair of items,

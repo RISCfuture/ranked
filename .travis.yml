@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+- 2.4.1
+postgres:
+  adapter: postgresql
+  database: ranked_test
+  username: ranked
+before_script:
+- createuser ranked
+- createdb -O ranked ranked_test
+- "rake db:migrate"

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :card do
     association :stack
     sequence(:name) { |i| "Card #{i}" }

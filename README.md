@@ -41,6 +41,6 @@ Tests
 -----
 
 Models have comprehensive unit tests, and controllers comprehensive integration
-tests, using RSpec and FactoryGirl. Specs can be run using `rspec spec`.
+tests, using RSpec and FactoryBot. Specs can be run using `rspec spec`.
 
 No tests of the Vue.js front-end are available yet.

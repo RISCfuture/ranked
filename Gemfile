@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 # FRAMEWORK
-gem 'rails', '5.1.3'
+gem 'rails', '5.1.4'
 gem 'puma'
 
 # MODELS
@@ -43,7 +43,7 @@ group :test do
   gem 'rails-controller-testing'
 
   # FACTORIES
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'ffaker'
 
   # ENVIRONMENT

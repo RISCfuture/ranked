@@ -18,7 +18,7 @@ module Ranked
       g.template_engine     :slim
       g.test_framework      :rspec, fixture: true, views: false
       g.integration_tool    :rspec
-      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
     end
 
 

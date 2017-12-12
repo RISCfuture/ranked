@@ -5,8 +5,8 @@ RSpec.describe StacksController, type: :controller do
     render_views
 
     let :stack do
-      stack = FactoryGirl.create(:stack)
-      FactoryGirl.create_list :card, 5, stack: stack
+      stack = FactoryBot.create(:stack)
+      FactoryBot.create_list :card, 5, stack: stack
       stack
     end
 

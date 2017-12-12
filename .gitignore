@@ -2,3 +2,6 @@
 .yardoc/public/packs
 /node_modules
 tmp/restart.txt
+/public/packs
+/public/packs-test
+/node_modules

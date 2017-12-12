@@ -10,11 +10,11 @@ import Vue from 'vue'
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
-import routes from './routes'
+import routes from 'routes'
 
 import 'normalize.css'
-import './stylesheets/fonts.scss'
-import './stylesheets/common.sass'
+import 'stylesheets/fonts.scss'
+import 'stylesheets/common.sass'
 
 // add interceptor to add CSRF tokens to request
 import axios from 'axios'

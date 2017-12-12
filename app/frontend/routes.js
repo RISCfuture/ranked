@@ -1,7 +1,7 @@
-import StacksNew from './views/stacks/new.vue'
-import StacksRank from './views/stacks/rank.vue'
-import StacksResults from './views/stacks/results.vue'
-import PageNotFound from './views/page_not_found.vue'
+import StacksNew from 'views/stacks/new.vue'
+import StacksRank from 'views/stacks/rank.vue'
+import StacksResults from 'views/stacks/results.vue'
+import PageNotFound from 'views/page_not_found.vue'
 
 export default [
   {path: '/', component: StacksNew, name: 'stack_new'},

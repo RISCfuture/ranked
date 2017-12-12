@@ -8,4 +8,4 @@ postgres:
 before_script:
 - createuser ranked
 - createdb -O ranked ranked_test
-- "rake db:migrate"
+- "bundle exec rake db:migrate"

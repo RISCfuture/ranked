@@ -1,4 +1,4 @@
-ruby '2.4.1'
+ruby '2.5.0'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -11,7 +11,7 @@ gem 'rails', '5.1.4'
 gem 'puma'
 
 # MODELS
-gem 'pg'
+gem 'pg', '< 1.0'
 
 # CONTROLLERS
 gem 'responders'

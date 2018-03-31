@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.5.0
+- 2.5.1
 postgres:
   adapter: postgresql
   database: ranked_test
@@ -8,4 +8,6 @@ postgres:
 before_script:
 - createuser ranked
 - createdb -O ranked ranked_test
+- gem update --system
+- gem install bundler
 - "bundle exec rake db:migrate"

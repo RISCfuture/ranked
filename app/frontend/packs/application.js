@@ -7,7 +7,16 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import {RAILS_ENV, BUGSNAG_API_KEY} from 'config/constants.js.erb'
+
 import Vue from 'vue'
+
+import bugsnag from 'bugsnag-js'
+const BugsnagClient = bugsnag(BUGSNAG_API_KEY)
+import bugsnagVue from 'bugsnag-vue'
+bugsnag.releaseStage = RAILS_ENV
+bugsnag.notifyReleaseStages = ['production']
+BugsnagClient.use(bugsnagVue(Vue))
 
 import VueRouter from 'vue-router'
 import routes from 'routes'

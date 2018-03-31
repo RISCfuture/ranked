@@ -23,6 +23,9 @@ gem 'slim-rails'
 # ASSETS
 gem 'webpacker'
 
+# ERROR TRACKING
+gem 'bugsnag'
+
 group :development do
   # ERRORS
   gem 'better_errors'

@@ -3,6 +3,8 @@
     "@rails/webpacker": "^3.4.1",
     "axios": "^0.17.1",
     "big-integer": "^1.6.26",
+    "bugsnag-js": "^4.4.0",
+    "bugsnag-vue": "^1.0.1",
     "coffeescript": "1.12.7",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",

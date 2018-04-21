@@ -45,8 +45,6 @@
 # ```
 
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
   rescue_from(ActiveRecord::RecordNotFound) do |error|
     respond_to do |format|
       format.json { render json: {error: error}, status: :not_found }

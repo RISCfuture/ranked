@@ -7,8 +7,9 @@ git_source(:github) do |repo_name|
 end
 
 # FRAMEWORK
-gem 'rails', '5.1.6'
+gem 'rails', '5.2.0'
 gem 'puma'
+gem 'bootsnap'
 
 # MODELS
 gem 'pg', '< 1.0'

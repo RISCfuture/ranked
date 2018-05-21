@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h1 class="error" v-if="error">Sorry, an error occurred.</h1>
-    <p class="error" v-if="error">{{error}}</p>
+    <template v-if="error">
+      <h1 class="error">Sorry, an error occurred.</h1>
+      <p class="error">{{error}}</p>
+    </template>
 
-    <template v-else>
+    <template v-if="loaded">
       <h2>Let’s Rank {{stack.name}}.</h2>
 
       <p>Which is better?</p>
@@ -37,6 +39,10 @@
     },
 
     computed: {
+      loaded() {
+        return !_.isEmpty(this.stack)
+      },
+
       matches() {
         if (!this.$route.query.m) return []
         else return coding.decode(this.$route.query.m)

@@ -4,11 +4,7 @@ RSpec.describe StacksController, type: :controller do
   describe '#show' do
     render_views
 
-    let :stack do
-      stack = FactoryBot.create(:stack)
-      FactoryBot.create_list :card, 5, stack: stack
-      stack
-    end
+    let(:stack) { FactoryBot.create :stack }
 
     it "should render the JSON for a stack" do
       get :show, params: {id: stack.to_param, format: 'json'}

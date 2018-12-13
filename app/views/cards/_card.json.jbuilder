@@ -1,1 +1,1 @@
-json.(card, :name)
+json.call(card, :name)

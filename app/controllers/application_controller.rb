@@ -58,6 +58,7 @@ class ApplicationController < ActionController::Base
     # @private
     def to_json
       return display_errors if has_errors?
+
       controller.response.status = :created if post?
       render 'show'
     end
@@ -71,7 +72,7 @@ class ApplicationController < ActionController::Base
 
     # @private
     def api_behavior
-      raise ActionController::MissingRenderer.new(format) unless has_renderer?
+      raise ActionController::MissingRenderer, format unless has_renderer?
 
       if patch? || put?
         has_errors? ? display_errors : display(resource)

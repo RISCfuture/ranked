@@ -19,7 +19,7 @@ class Card < ApplicationRecord
   belongs_to :stack, inverse_of: :cards
 
   validates :name,
-            presence: true,
-            length: {maximum: 126},
+            presence:   true,
+            length:     {maximum: 126},
             uniqueness: {scope: :stack_id}
 end

@@ -134,6 +134,7 @@ class Stack < ApplicationRecord
 
     card_names.split("\n").shuffle.each do |line|
       next if line.blank?
+
       cards.build(name: line.strip)
     end
   end
@@ -150,8 +151,6 @@ class Stack < ApplicationRecord
   end
 
   def at_least_two_cards
-    if cards.size < 2
-      errors.add :cards, :too_few
-    end
+    errors.add(:cards, :too_few) if cards.size < 2
   end
 end

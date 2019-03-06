@@ -1,5 +1,0 @@
-plugins:
-  precss: {}
-  postcss-import: {}
-  postcss-cssnext: {}
-  postcss-property-lookup: {}

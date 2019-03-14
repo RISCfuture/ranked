@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.6.1
+- 2.6.2
 postgres:
   adapter: postgresql
   database: ranked_test

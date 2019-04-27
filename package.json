@@ -1,4 +1,6 @@
 {
+  "name": "Ranked.",
+  "license": "MIT",
   "dependencies": {
     "@rails/webpacker": "^4.0.1",
     "axios": "^0.17.1",

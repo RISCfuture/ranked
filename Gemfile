@@ -1,4 +1,4 @@
-ruby '2.6.2'
+ruby '2.6.3'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -9,10 +9,10 @@ end
 # FRAMEWORK
 gem 'bootsnap'
 gem 'puma'
-gem 'rails', '5.2.2.1'
+gem 'rails', '5.2.3'
 
 # MODELS
-gem 'pg', '< 1.0'
+gem 'pg'
 
 # CONTROLLERS
 gem 'responders'

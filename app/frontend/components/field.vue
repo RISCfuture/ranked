@@ -8,9 +8,9 @@
               :required="required"
               ref="input"
               @input="updateValue($event.target.value)" />
-    <p class="placeholder" style="white-space: pre" v-if="type == 'textarea'">{{placeholder}}</p>
+    <p class="placeholder" :class="{'textarea-placeholder': type == 'textarea'}">{{placeholder}}</p>
 
-    <input v-else
+    <input v-if="type != 'textarea'"
            :type="type"
            :name="name"
            :value="value"
@@ -85,6 +85,10 @@
     padding: 5px;
     font-size: 16px;
     pointer-events: none;
+
+    &.textarea-placeholder {
+      white-space: pre;
+    }
   }
 
   input, textarea {

@@ -7,6 +7,9 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
+
 import {RAILS_ENV, BUGSNAG_API_KEY} from 'config/constants.js.erb'
 
 import Vue from 'vue'

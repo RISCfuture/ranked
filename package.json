@@ -6,6 +6,7 @@
     "bugsnag-js": "^4.4.0",
     "bugsnag-vue": "^1.0.1",
     "coffeescript": "1.12.7",
+    "core-js": "3",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "numeral": "^2.0.6",

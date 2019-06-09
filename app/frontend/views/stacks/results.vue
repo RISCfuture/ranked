@@ -16,35 +16,38 @@
   </div>
 </template>
 
-<script>
-  import axios from 'axios'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import * as _ from 'lodash';
+  import Axios from 'axios'
 
-  export default {
-    data() {
-      return {
-        stack: {},
-        error: null
-      }
-    },
+  import {Stack} from 'types'
 
-    computed: {
-      canShare() { return !this.$route.query.name },
-      shared() { return this.$route.query.name }
-    },
+  @Component
+  export default class Results extends Vue {
+    stack?: Stack = null
+    error?: Error = null
 
-    methods: {
-      share(_event) {
-        let name = prompt("What’s your name?")
-        let route = this.$router.resolve({name: 'stack_results', params: {id: this.$route.params.id}, query: {m: this.$route.query.m, name: name}})
-        let href = `${window.location.origin}${route.href}`
-        prompt("Copy this link and share with your friends:", href)
-      }
-    },
+    get canShare(): boolean { return !this.$route.query.name }
+    get shared(): string {
+      if (_.isArray(this.$route.query.name))
+        return this.$route.query.name[0]
+      else
+        return this.$route.query.name
+    }
+
+    share(_event: Event) {
+      let name = prompt("What’s your name?")
+      let route = this.$router.resolve({name: 'stack_results', params: {id: this.$route.params.id}, query: {m: this.$route.query.m, name: name}})
+      let href = `${window.location.origin}${route.href}`
+      prompt("Copy this link and share with your friends:", href)
+    }
 
     mounted() {
-      axios.get(`/stacks/${this.$route.params.id}.json?m=${this.$route.query.m}`).then(({data}) => {
+      Axios.get(`/stacks/${this.$route.params.id}.json?m=${this.$route.query.m}`).then(({data}) => {
         this.stack = data
-      }).catch((error) => {
+      }).catch(error => {
         this.error = error
       })
     }

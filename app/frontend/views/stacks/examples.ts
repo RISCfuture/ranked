@@ -1,4 +1,9 @@
-export default [
+export interface Example {
+  name: string,
+  cardNames: string[]
+}
+
+const examples: Example[] = [
   {
     name: "Fruits",
     cardNames: ["apples", "oranges", "cherries", "kiwis", "limes", "strawberries", "blackberries", "avocado", "watermelon"]
@@ -28,3 +33,5 @@ export default [
     cardNames: ["Dr. Nick Riviera", "Bumblebee Man", "Sherry and/or Terry", "Lou", "Frank ‘Grimey’ Grimes", "Kodos", "Superintendent Chalmers", "Blinky"]
   }
 ]
+
+export default examples

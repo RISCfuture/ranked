@@ -8,7 +8,7 @@
               :required="required"
               ref="input"
               @input="updateValue($event.target.value)" />
-    <p class="placeholder" :class="{'textarea-placeholder': type == 'textarea'}">{{placeholder}}</p>
+    <p v-if="type === 'textarea'" class="placeholder textarea-placeholder" ref="placeholder">{{placeholder}}</p>
 
     <input v-if="type != 'textarea'"
            :type="type"
@@ -24,46 +24,52 @@
   </div>
 </template>
 
-<script>
-  import _ from 'lodash'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import {Prop} from 'vue-property-decorator'
+  import * as _ from 'lodash'
 
-  export default {
-    props: {
-      value: {},
-      errors: {default() { return {} }},
+  import {Error, Errors} from 'types'
 
-      type: {type: String, required: true},
-      placeholder: {type: String, required: false},
-      name: {type: String, required: true},
-      required: {type: Boolean},
-      maxlength: {type: Number}
-    },
+  @Component
+  export default class Field extends Vue {
+    $refs!: {
+      placeholder?: HTMLParagraphElement
+      input: HTMLTextAreaElement | HTMLInputElement
+    }
 
-    computed: {
-      attribute() {
-        let [match, object, first, rest] = this.name.match(
-            /^(\w+)(?:\[(\w+)\]((?:\[\w+\])*))?$/)
-        return first + rest
-      },
-      fieldErrors() { return this.errors[this.attribute] || {} },
-      hasErrors() { return this.fieldErrors.length > 0 },
-      errorString() {
-        return _.map(this.fieldErrors, ({name}) => name) //TODO
+    @Prop({}) value: string | number | null
+    @Prop({default(): Errors { return {} }}) errors: Errors
+    @Prop({type: String, required: true}) type: string
+    @Prop({type: String, required: false}) placeholder: string
+    @Prop({type: String, required: true}) name: string
+    @Prop({type: Boolean}) required: boolean
+    @Prop({type: Number}) maxlength: number
+
+    private get attribute(): string {
+      let [match, object, first, rest] = this.name.match(
+          /^(\w+)(?:\[(\w+)\]((?:\[\w+\])*))?$/)
+      return first + rest
+    }
+    private get fieldErrors(): Error[] { return this.errors[this.attribute] || [] }
+    get hasErrors(): boolean { return this.fieldErrors.length > 0 }
+    get errorString(): string {
+      return _.map(this.fieldErrors, error => error.name).join(", ") //TODO
+    }
+
+    updateValue(value?: string | number) {
+      let stringValue = _.isNumber(value) ? value.toString() : value
+
+      if (this.type === 'textarea') {
+        if (stringValue && stringValue.length > 0)
+          this.$refs.placeholder.style.display = 'none'
+        else
+          this.$refs.placeholder.style.display = 'inherit'
       }
-    },
 
-    methods: {
-      updateValue(value) {
-        if (this.type === 'textarea') {
-          if (value && value.length > 0)
-            this.$el.querySelector('p.placeholder').style.display = 'none'
-          else
-            this.$el.querySelector('p.placeholder').style.display = 'inherit'
-        }
-
-        this.$refs.input.value = value
-        this.$emit('input', value)
-      }
+      this.$refs.input.value = stringValue
+      this.$emit('input', value)
     }
   }
 </script>

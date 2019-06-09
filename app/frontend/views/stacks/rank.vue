@@ -24,58 +24,62 @@
   </div>
 </template>
 
-<script>
-  import _ from 'lodash'
-  import axios from 'axios'
-  import numeral from 'numeral'
-  import coding from './encoder'
+<script lang="ts">
+  import Vue from 'vue';
+  import Component from 'vue-class-component'
+  import * as _ from 'lodash'
+  import Axios from 'axios'
+  import * as numeral from 'numeral'
 
-  export default {
-    data() {
-      return {
-        stack: {},
-        error: null
-      }
-    },
+  import * as coding from 'utilities/coding'
+  import {Card, Stack} from 'types'
 
-    computed: {
-      loaded() {
-        return !_.isEmpty(this.stack)
-      },
+  @Component
+  export default class Rank extends Vue {
+    stack?: Stack = null
+    error?: Error = null
 
-      matches() {
-        if (!this.$route.query.m) return []
-        else return coding.decode(this.$route.query.m)
-      },
+    get loaded(): boolean {
+      return !_.isNull(this.stack)
+    }
 
-      match() {
-        if (!this.stack || !this.stack.pairs_order) return null
-        let indexes = this.stack.pairs_order[this.matches.length]
-        return _.map(indexes, (i) => this.stack.cards[i])
-      },
+    get matches(): number[] {
+      if (!this.$route.query.m)
+        return []
+      else if (_.isArray(this.$route.query.m))
+        return coding.decode(this.$route.query.m[0])
+      else
+        return coding.decode(this.$route.query.m)
+    }
 
-      remaining() {
-        let remaining = this.stack.pairs_order.length - this.matches.length
-        let remainingStr = numeral(remaining).format('0,0')
-        let choice = (remaining === 1) ? "choice" : "choices"
-        return `${remainingStr} ${choice}`
-      }
-    },
+    get match(): [Card, Card] {
+      if (!this.stack || !this.stack.pairs_order) return null
+      let indexes = this.stack.pairs_order[this.matches.length]
+      return [
+        this.stack.cards[indexes[0]],
+        this.stack.cards[indexes[1]]
+      ]
+    }
 
-    methods: {
-      choose(choice) {
-        let results = this.matches.concat([choice])
-        if (results.length >= this.stack.pairs_order.length)
-          this.$router.push({name: 'stack_results', query: {m: coding.encode(results)}})
-        else
-          this.$router.push({query: {m: coding.encode(results)}})
-      }
-    },
+    get remaining(): string {
+      let remaining = this.stack.pairs_order.length - this.matches.length
+      let remainingStr = numeral(remaining).format('0,0')
+      let choice = (remaining === 1) ? "choice" : "choices"
+      return `${remainingStr} ${choice}`
+    }
+
+    choose(choice: number) {
+      let results = this.matches.concat([choice])
+      if (results.length >= this.stack.pairs_order.length)
+        this.$router.push({name: 'stack_results', query: {m: coding.encode(results)}})
+      else
+        this.$router.push({query: {m: coding.encode(results)}})
+    }
 
     mounted() {
-      axios.get(`/stacks/${this.$route.params.id}.json`).then(({data}) => {
+      Axios.get(`/stacks/${this.$route.params.id}.json`).then(({data}) => {
         this.stack = data
-      }).catch((error) => {
+      }).catch(error => {
         this.error = error.toString()
       })
     }

@@ -23,7 +23,7 @@
         <field type="textarea"
                name="stack[card_names]"
                required
-               :placeholder="placeholder.cardNames"
+               :placeholder="placeholderCardNames"
                v-model="stack.card_names"
                :errors="errors" />
 
@@ -35,38 +35,48 @@
   </div>
 </template>
 
-<script>
-  import _ from 'lodash'
-  import defaultPlaceholders from './examples'
-  import axios from 'axios'
-  import Field from '../../components/field.vue'
-  import FAQ from '../faq.vue'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+  import * as _ from 'lodash'
+  import Axios from 'axios'
 
-  export default {
-    components: {Field, faq: FAQ},
+  import {Errors} from 'types'
+  import defaultPlaceholders, {Example} from './examples'
+  import Field from '../../components/Field'
+  import FAQ from '../FAQ'
 
-    data() {
-      let placeholder = _.sample(defaultPlaceholders)
-      placeholder.cardNames = _.shuffle(placeholder.cardNames).join("\n")
-      return {
-        stack: {},
-        errors: {},
-        placeholder
-      }
-    },
+  interface ScratchStack {
+    name?: string
+    card_names?: string
+  }
 
-    methods: {
-      create() {
-        axios.post('/stacks.json', {stack: this.stack}).then(({data}) => {
-          console.debug(data)
-          this.$router.push({name: 'stack_rank', params: {id: data.id}})
-        }).catch((error) => {
-          if (error.response && error.response.status === 422) {
-            this.errors = error.response.data.errors
-          }
-          else alert(error) //TODO
-        })
-      }
+  @Component({
+    components: {Field, faq: FAQ}
+  })
+  export default class New extends Vue {
+    stack: ScratchStack = {}
+    errors: Errors = {}
+    placeholder?: Example = null
+
+    get placeholderCardNames(): string {
+      return this.placeholder.cardNames.join("\n")
+    }
+
+    create() {
+      Axios.post('/stacks.json', {stack: this.stack}).then(({data}) => {
+        this.$router.push({name: 'stack_rank', params: {id: data.id}})
+      }).catch(error => {
+        if (error.response && error.response.status === 422) {
+          this.errors = error.response.data.errors
+        }
+        else alert(error) //TODO
+      })
+    }
+
+    created() {
+      this.placeholder = _.clone(_.sample(defaultPlaceholders))
+      this.placeholder.cardNames = _.shuffle(this.placeholder.cardNames)
     }
   }
 </script>

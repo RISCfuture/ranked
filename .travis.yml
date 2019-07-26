@@ -3,10 +3,10 @@ rvm:
 - 2.6.3
 node_js:
 - 8.9.4
-postgres:
-  adapter: postgresql
-  database: ranked_test
-  username: ranked
+services:
+- postgresql
+addons:
+  postgresql: "9.6"
 before_install:
 - gem update --system
 - gem install bundler

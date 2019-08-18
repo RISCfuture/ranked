@@ -8,7 +8,7 @@ html lang="en"
 
     title Ranked.
 
-    = stylesheet_pack_tag 'application'
+    = stylesheet_pack_tag 'application', nonce: content_security_policy_nonce
     = javascript_pack_tag 'application', nonce: true, defer: true
 
   body class=controller_name.gsub('/', '-') id="#{controller_name.gsub('/', '-')}-#{action_name}"

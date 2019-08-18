@@ -1,15 +1,10 @@
 ruby '2.6.3'
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
 # FRAMEWORK
 gem 'bootsnap'
 gem 'puma'
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.0'
 
 # MODELS
 gem 'pg'
@@ -44,7 +39,7 @@ end
 group :test do
   # SPECS
   gem 'rails-controller-testing'
-  gem 'rspec-rails'
+  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-dev'
 
   # FACTORIES
   gem 'factory_bot_rails'
@@ -55,4 +50,9 @@ group :test do
   gem 'fakefs', require: 'fakefs/safe'
   gem 'timecop'
   gem 'webmock'
+end
+
+group :production do
+  # CACHE
+  gem 'redis'
 end

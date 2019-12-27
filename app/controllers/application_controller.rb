@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   class Responder < ActionController::Responder
 
     # @private
-    def to_json
+    def to_json(*_args)
       return display_errors if has_errors?
 
       controller.response.status = :created if post?

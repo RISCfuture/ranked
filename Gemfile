@@ -1,10 +1,10 @@
-ruby '2.7.0'
+ruby '2.7.1'
 source 'https://rubygems.org'
 
 # FRAMEWORK
 gem 'bootsnap'
 gem 'puma'
-gem 'rails', '6.0.1'
+gem 'rails', '6.0.2.2'
 
 # MODELS
 gem 'pg'

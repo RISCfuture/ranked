@@ -6,13 +6,12 @@ node_js:
 services:
 - postgresql
 addons:
-  postgresql: '12.1'
+  postgresql: "12"
+  apt:
+    packages:
+    - postgresql-12
+    - postgresql-client-12
 before_install:
-- sudo apt-get update
-- sudo apt-get --yes remove postgresql\*
-- sudo apt-get install -y postgresql-12 postgresql-client-12
-- sudo cp /etc/postgresql/{9.6,12}/main/pg_hba.conf
-- sudo service postgresql restart 12
 - gem update --system
 - gem install bundler
 before_script:
@@ -24,6 +23,7 @@ before_script:
 - bundle exec rails db:migrate webpacker:compile
 env:
   global:
-    - secure: LaHDjeOhIRXXGrhMGUPDAuI9a+FlSwjv5gAKHbE4hsdtw2xB+Rin5FzT8jgvRUcXbu4MdF6BwwvdmjmDw2hgrt1XY/Nl8FhqqiQgzb39SL9VFPimR7IM89GUg4DRXig+2dY3Sd+XOsdti/maIWPE/RfBbdbpNTY4GBa20MzdSyMvzZYDTL6HEOC7HwafkLX2n1m2UE6D6/+2yY2enJ0yVuVghBI+wdpPr7Yfy73LAtZWVoJ/6maOoYQmC2Cb7NYBRQtIpZr/Me26+ZD1sNiNwvNvBRVD9wnlLSOutPY76XR/FSCnAya27alqFq5fmKB5qDQFRlU2zSUjhtmg8K9WhL1fEc45t9NnTH9shV8EdWon5PkDqJga95K8dSr5RQIJerp32FfXOo0F1LPJDLnVSZT1JH0NSawreCigKJGDLeTOc8LuvIvpZdkZJQ2vY6sMXQij5YSWhFvgBLsC499lHfsHe1jjAkYuaQfXbQV92WD3WXNUSEafm2tVJ+rt6KuV1gyrkHHwh7YQ+wTqfAHOHBVNAr4h8m0IqlIs7lGPAPclYitiP3TIaKTpDamFTWg18/Dp6jfvFkJMtcbkIQpkpjcHW4aaQ+um6w2bMZEgJCBCRwMkfIoKepNILLtSgIe3AELP8e3VHHfyQ6dC5W63phXiDwAJ22M5aA4o5exaW3I=
-    - RAILS_TEST_DB_USER=postgres
-    - PGUSER=postgres
+  - secure: LaHDjeOhIRXXGrhMGUPDAuI9a+FlSwjv5gAKHbE4hsdtw2xB+Rin5FzT8jgvRUcXbu4MdF6BwwvdmjmDw2hgrt1XY/Nl8FhqqiQgzb39SL9VFPimR7IM89GUg4DRXig+2dY3Sd+XOsdti/maIWPE/RfBbdbpNTY4GBa20MzdSyMvzZYDTL6HEOC7HwafkLX2n1m2UE6D6/+2yY2enJ0yVuVghBI+wdpPr7Yfy73LAtZWVoJ/6maOoYQmC2Cb7NYBRQtIpZr/Me26+ZD1sNiNwvNvBRVD9wnlLSOutPY76XR/FSCnAya27alqFq5fmKB5qDQFRlU2zSUjhtmg8K9WhL1fEc45t9NnTH9shV8EdWon5PkDqJga95K8dSr5RQIJerp32FfXOo0F1LPJDLnVSZT1JH0NSawreCigKJGDLeTOc8LuvIvpZdkZJQ2vY6sMXQij5YSWhFvgBLsC499lHfsHe1jjAkYuaQfXbQV92WD3WXNUSEafm2tVJ+rt6KuV1gyrkHHwh7YQ+wTqfAHOHBVNAr4h8m0IqlIs7lGPAPclYitiP3TIaKTpDamFTWg18/Dp6jfvFkJMtcbkIQpkpjcHW4aaQ+um6w2bMZEgJCBCRwMkfIoKepNILLtSgIe3AELP8e3VHHfyQ6dC5W63phXiDwAJ22M5aA4o5exaW3I=
+  - RAILS_TEST_DB_USERNAME=travis
+  - PGUSER=travis
+  - PGPORT=5433
